@@ -1,0 +1,15 @@
+name: Snyk
+on:push
+jobs:
+  Security:
+     runs-on: ubuntu-latest
+     env:
+       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      Steps:
+      - uses: actions/checkout@master
+      - uses: snyk/actions/setup
+      - name: Snyk test
+      continue-on-error: true
+     run: snyk test --all-projects
+      - name: Snyk Monitor
+     run: snyk monitor --all-projects
